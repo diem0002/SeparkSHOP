@@ -14,6 +14,7 @@ export const authConfig = {
             if (isOnDashboard) {
                 if (isLoggedIn) {
                     // Force type checking or use any for quick access properties
+                    // @ts-ignore
                     const userRole = auth.user?.role as string | undefined
                     return userRole === 'admin';
                 }
