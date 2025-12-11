@@ -25,10 +25,10 @@ export default async function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} antialiased`}>
         <nav className="fixed top-0 w-full z-50 glass-effect border-b border-white/5 text-white p-4 md:p-6 flex justify-between items-center bg-black/20 backdrop-blur-md">
           <div className="pointer-events-auto">
-            <Link href="/" className="text-xl font-bold font-heading tracking-tight">ART.</Link>
+            <Link href="/" className="text-xl font-bold font-heading tracking-tight">SEPARK.</Link>
           </div>
           <div className="pointer-events-auto flex items-center gap-4 md:gap-6 font-medium text-sm md:text-base">
-            <Link href="/gallery" className="hover:opacity-70 transition-opacity">Galería</Link>
+            <Link href="/gallery" className="hover:opacity-70 transition-opacity">Tienda</Link>
             {session?.user ? (
               <>
                 <Link href="/admin" className="hover:opacity-70 transition-opacity">Admin</Link>

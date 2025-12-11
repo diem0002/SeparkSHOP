@@ -19,33 +19,34 @@ async function main() {
 
     console.log({ user })
 
-    const paintings = [
+    const products = [
         {
-            title: "Neon Dreams",
-            description: "A cyberpunk vision of a future metropolis.",
-            price: 1200,
-            imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop"
+            title: "Separk Classic Tee - Black",
+            description: "Remera de algodón 100% heavy weight con logo clásico en el pecho.",
+            price: 25000,
+            imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop"
         },
         {
-            title: "Abstract Flow",
-            description: "Exploration of fluid dynamics in oil.",
-            price: 850,
-            imageUrl: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1976&auto=format&fit=crop"
+            title: "Oversized Hoodie - Grey",
+            description: "Buzo canguro oversized, ideal para patinar en invierno.",
+            price: 45000,
+            imageUrl: "https://images.unsplash.com/photo-1556906781-9a412961d289?q=80&w=2080&auto=format&fit=crop"
         },
         {
-            title: "Geometric Soul",
-            description: "Minimalist study of shapes and shadows.",
-            price: 2100,
-            imageUrl: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1974&auto=format&fit=crop"
+            title: "Separk Deck - 8.25",
+            description: "Tabla de maple canadiense 7 láminas. Concave medio.",
+            price: 60000,
+            imageUrl: "https://images.unsplash.com/photo-1595467959689-53fdc76cbdf8?q=80&w=2069&auto=format&fit=crop"
         }
     ]
 
-    for (const p of paintings) {
-        await prisma.painting.create({
+    for (const p of products) {
+        // @ts-ignore
+        await prisma.product.create({
             data: p
         })
     }
-    console.log("Seeded paintings")
+    console.log("Seeded products")
 }
 
 main()

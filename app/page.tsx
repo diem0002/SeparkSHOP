@@ -10,23 +10,23 @@ export default function Home() {
 
       <div className="fade-in relative z-10">
         <span className="text-sm font-mono text-gray-400 tracking-[0.3em] uppercase mb-4 block">
-          Colección 2025
+          EST. 2025
         </span>
         <h1 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-none bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-600">
-          OBRA <br /> MAESTRA.
+          SKATE <br /> CULTURE.
         </h1>
         <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-          Donde la visión se encuentra con la eternidad. <br />
-          Piezas únicas para espacios que definen.
+          Más que ropa, una identidad. <br />
+          Diseñado para patinar, creado para durar.
         </p>
 
         <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
           <Link href="/gallery" className="btn h-14 px-8 text-lg rounded-full group">
-            <span className="mr-2">Ver Colección</span>
+            <span className="mr-2">Ver Productos</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link href="/login" className="px-8 py-4 text-gray-300 hover:text-white transition-colors border-b border-transparent hover:border-white/20">
-            Acceso Artista
+            Acceso Admin
           </Link>
         </div>
       </div>

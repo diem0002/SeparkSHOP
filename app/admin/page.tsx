@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
-import { createPainting, deletePainting } from "./actions"
+import { createProduct, deleteProduct } from "./actions"
 import { redirect } from "next/navigation"
 
 export default async function AdminPage() {
@@ -17,7 +17,7 @@ export default async function AdminPage() {
         redirect("/gallery")
     }
 
-    const paintings = await prisma.painting.findMany({
+    const products = await prisma.product.findMany({
         orderBy: { createdAt: 'desc' }
     })
 
@@ -33,9 +33,9 @@ export default async function AdminPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 {/* Form Section */}
                 <div className="bg-white/5 p-8 rounded-lg border border-white/10 h-fit">
-                    <h2 className="text-2xl font-bold mb-6">Subir Nueva Obra</h2>
+                    <h2 className="text-2xl font-bold mb-6">Subir Nuevo Producto</h2>
                     {/* @ts-ignore */}
-                    <form action={createPainting} className="space-y-4">
+                    <form action={createProduct} className="space-y-4">
                         <div>
                             <label className="block text-sm text-gray-400 mb-2">Título</label>
                             <input name="title" required className="w-full bg-black/50 border border-white/10 p-2 rounded text-white" />
@@ -57,36 +57,36 @@ export default async function AdminPage() {
                         </div>
 
                         <button type="submit" className="w-full btn mt-4">
-                            Publicar Obra
+                            Publicar Producto
                         </button>
                     </form>
                 </div>
 
                 {/* List Section */}
                 <div>
-                    <h2 className="text-2xl font-bold mb-6">Inventario ({paintings.length})</h2>
+                    <h2 className="text-2xl font-bold mb-6">Inventario ({products.length})</h2>
                     <div className="space-y-4">
-                        {paintings.map((painting: any) => (
-                            <div key={painting.id} className="flex gap-4 p-4 bg-white/5 rounded border border-white/5 items-center">
-                                <img src={painting.imageUrl} alt={painting.title} className="w-16 h-16 object-cover rounded" />
+                        {products.map((product: any) => (
+                            <div key={product.id} className="flex gap-4 p-4 bg-white/5 rounded border border-white/5 items-center">
+                                <img src={product.imageUrl} alt={product.title} className="w-16 h-16 object-cover rounded" />
                                 <div className="flex-1">
-                                    <h3 className="font-bold">{painting.title}</h3>
-                                    <p className="text-sm text-gray-400">${painting.price.toFixed(2)}</p>
+                                    <h3 className="font-bold">{product.title}</h3>
+                                    <p className="text-sm text-gray-400">${product.price.toLocaleString()}</p>
                                 </div>
                                 <div className="text-xs text-green-400 px-2 py-1 bg-green-900/30 rounded">
-                                    {painting.available ? 'Disponible' : 'Vendido'}
+                                    {product.available ? 'Disponible' : 'Agotado'}
                                 </div>
                                 {/* @ts-ignore */}
-                                <form action={deletePainting}>
-                                    <input type="hidden" name="id" value={painting.id} />
+                                <form action={deleteProduct}>
+                                    <input type="hidden" name="id" value={product.id} />
                                     <button type="submit" className="text-red-400 hover:text-red-300 transition-colors p-2">
                                         Eliminar
                                     </button>
                                 </form>
                             </div>
                         ))}
-                        {paintings.length === 0 && (
-                            <p className="text-gray-500 italic">No hay cuadros subidos aún.</p>
+                        {products.length === 0 && (
+                            <p className="text-gray-500 italic">No hay productos subidos aún.</p>
                         )}
                     </div>
                 </div>

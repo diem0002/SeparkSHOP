@@ -7,13 +7,13 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 
-const paintingSchema = z.object({
+const productSchema = z.object({
     title: z.string().min(1),
     description: z.string().min(1),
     price: z.coerce.number().min(0),
 })
 
-export async function createPainting(formData: FormData) {
+export async function createProduct(formData: FormData) {
     const session = await auth()
     if (!session?.user) redirect('/login')
 
@@ -26,7 +26,7 @@ export async function createPainting(formData: FormData) {
         throw new Error('Image is required')
     }
 
-    const validatedFields = paintingSchema.safeParse({
+    const validatedFields = productSchema.safeParse({
         title,
         description,
         price,
@@ -46,7 +46,7 @@ export async function createPainting(formData: FormData) {
 
     const imageUrl = blob.url
 
-    await prisma.painting.create({
+    await prisma.product.create({
         data: {
             ...validatedFields.data,
             imageUrl,
@@ -58,14 +58,14 @@ export async function createPainting(formData: FormData) {
     redirect('/admin')
 }
 
-export async function deletePainting(formData: FormData) {
+export async function deleteProduct(formData: FormData) {
     const session = await auth()
     if (!session?.user) redirect('/login')
 
     const id = formData.get('id') as string
     if (!id) return
 
-    await prisma.painting.delete({
+    await prisma.product.delete({
         where: { id }
     })
 
