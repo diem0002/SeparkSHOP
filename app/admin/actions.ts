@@ -11,6 +11,7 @@ const productSchema = z.object({
     title: z.string().min(1),
     description: z.string().min(1),
     price: z.coerce.number().min(0),
+    category: z.string().min(1),
 })
 
 export async function createProduct(formData: FormData) {
@@ -20,6 +21,7 @@ export async function createProduct(formData: FormData) {
     const title = formData.get('title') as string
     const description = formData.get('description') as string
     const price = formData.get('price') as string
+    const category = formData.get('category') as string
     const image = formData.get('image') as File
 
     if (!image) {
@@ -30,6 +32,7 @@ export async function createProduct(formData: FormData) {
         title,
         description,
         price,
+        category,
     })
 
     if (!validatedFields.success) {
@@ -48,9 +51,12 @@ export async function createProduct(formData: FormData) {
 
     await prisma.product.create({
         data: {
-            ...validatedFields.data,
-            imageUrl,
-        },
+            title: validatedFields.data.title,
+            description: validatedFields.data.description,
+            price: validatedFields.data.price,
+            category: validatedFields.data.category,
+            imageUrl: blob.url,
+        }
     })
 
     revalidatePath('/gallery')

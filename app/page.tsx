@@ -25,9 +25,6 @@ export default function Home() {
             <span className="mr-2">Ver Productos</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
-          <Link href="/login" className="px-8 py-4 text-gray-300 hover:text-white transition-colors border-b border-transparent hover:border-white/20">
-            Acceso Admin
-          </Link>
         </div>
       </div>
     </div>

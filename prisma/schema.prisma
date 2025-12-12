@@ -23,6 +23,7 @@ model Product {
   description String
   price       Float
   imageUrl    String
+  category    String   @default("General")
   available   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

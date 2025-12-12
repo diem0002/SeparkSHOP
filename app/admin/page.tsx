@@ -52,6 +52,11 @@ export default async function AdminPage() {
                         </div>
 
                         <div>
+                            <label className="block text-sm text-gray-400 mb-2">Categoría</label>
+                            <input name="category" placeholder="Ej: Remeras, Medias, Objetos..." required className="w-full bg-black/50 border border-white/10 p-2 rounded text-white" />
+                        </div>
+
+                        <div>
                             <label className="block text-sm text-gray-400 mb-2">Imagen</label>
                             <input name="image" type="file" accept="image/*" required className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-white file:text-black hover:file:bg-gray-200 cursor-pointer" />
                         </div>
