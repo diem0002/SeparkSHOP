@@ -16,7 +16,8 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
 
     // WhatsApp Link Logic
     const phoneNumber = "5493454012405" // Separk WhatsApp
-    const message = `Hola! Me interesa comprar el producto "${product.title}". Link: ${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/gallery/${product.id}`
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://separk-shop-m8636pnal-davids-projects-c4fecdb5.vercel.app'
+    const message = `Hola! Me interesa comprar el producto "${product.title}". Link: ${baseUrl}/gallery/${product.id}`
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 
     return (
