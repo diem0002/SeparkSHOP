@@ -14,7 +14,7 @@ export const authConfig = {
             if (isOnDashboard) {
                 if (isLoggedIn) {
                     // Force type checking or use any for quick access properties
-                    // Force type checking or use any for quick access properties
+                    // Force type checking or use any for quick access properties (Fix for Vercel Build)
                     const userRole = (auth.user as any)?.role as string | undefined
                     return userRole === 'admin';
                 }
