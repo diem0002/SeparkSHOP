@@ -1,6 +1,6 @@
 # Guía de Despliegue en Vercel (100% Gratis)
 
-Esta guía te llevará paso a paso para poner tu Galería de Arte en internet usando servicios gratuitos profesionales.
+Esta guía te llevará paso a paso para poner tu Tienda Separk en internet usando servicios gratuitos profesionales.
 
 ## Requisitos Previos
 
@@ -13,19 +13,11 @@ Esta guía te llevará paso a paso para poner tu Galería de Arte en internet us
 
 Como tu código ahora vive en tu PC, necesitamos subirlo a "la nube de código" (GitHub).
 
-1.  Ve a https://github.com/new y crea un nuevo repositorio llamado `art-gallery` (público o privado, da igual).
+1.  Ve a https://github.com/new y crea un nuevo repositorio llamado `separk-shop` (público o privado, da igual).
 2.  **¡IMPORTANTE!**: No marques "Add README" ni ninguna otra casilla. Crea el repo vacío.
 3.  Abre tu terminal en la carpeta del proyecto y ejecuta estos comandos uno por uno:
 
-```bash
-git init
-git add .
-git commit -m "Initial commit for Vercel deployment"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/art-gallery.git
-git push -u origin main
-```
-*(Reemplaza `TU_USUARIO` con tu nombre de usuario de GitHub real. GitHub te dará estos comandos exactos al crear el repo).*
+*(Si ya ejecutaste los comandos que te di en el chat, puedes saltar al Paso 2).*
 
 ---
 
@@ -33,14 +25,14 @@ git push -u origin main
 
 1.  Entra a tu Dashboard de Vercel (https://vercel.com/dashboard).
 2.  Haz clic en **"Add New..."** -> **"Project"**.
-3.  Verás tu repositorio `art-gallery` en la lista. Haz clic en **"Import"**.
+3.  Verás tu repositorio `SeparkSHOP` (o el nombre que le hayas puesto) en la lista. Haz clic en **"Import"**.
 4.  **Configuración del Proyecto**:
     *   **Framework Preset**: Next.js (se detecta solo).
     *   **Root Directory**: `./` (se detecta solo).
     *   **Environment Variables**:
         *   Abre la sección y agrega:
         *   `AUTH_SECRET`: Genera uno nuevo (puedes escribir letras al azar largas y seguras).
-        *   `ADMIN_EMAIL`: Tu correo real.
+        *   `ADMIN_EMAIL`: Tu correo real (para entrar como admin).
         *   `ADMIN_PASSWORD`: Tu contraseña de admin.
 5.  Haz clic en **"Deploy"**.
     *   *Nota*: Es probable que el primer despliegue **falle** porque aún no tenemos la base de datos conectada. ¡No te asustes! Es normal.
@@ -51,7 +43,7 @@ git push -u origin main
 
 1.  Una vez creado el proyecto (aunque falle el deploy), ve a la pestaña **"Storage"** en el menú de arriba de tu proyecto Vercel.
 2.  Haz clic en **"Connect Store"** -> **"Create New"** -> **"Postgres"**.
-3.  Acepta los términos, ponle nombre (ej: `my-gallery-db`) y selecciona la región (ej: `Washington, D.C. - iad1` o la más cercana a ti de las "Free").
+3.  Acepta los términos, ponle nombre (ej: `separk-db`) y selecciona la región (ej: `Washington, D.C. - iad1` o la más cercana a ti de las "Free").
 4.  Dale a **"Create"**.
 5.  Vercel agregará automáticamente las variables de entorno (`POSTGRES_URL`, etc.) a tu proyecto.
 
@@ -78,12 +70,12 @@ Como cambiamos el código para no guardar fotos en el disco duro (que se borra e
 
 ### Inicializar la Base de Datos
 
-Ahora tu sitio está vivo, pero la base de datos está vacía y sin tablas. Necesitamos ejecutar el "seed" en la nube.
+Ahora tu sitio está vivo, pero la base de datos está vacía y sin tablas. Necesitamos ejecutar el "seed" en la nube para cargar los productos.
 
 Vercel no tiene una terminal interactiva fácil, pero podemos usar tu PC para esto:
 
 1.  En tu terminal local (en tu PC), necesitamos conectarnos a la base de datos de Vercel.
-2.  Instala Vercel CLI:
+2.  Instala Vercel CLI (si no lo tienes):
     ```bash
     npm i -g vercel
     ```
@@ -100,9 +92,9 @@ Vercel no tiene una terminal interactiva fácil, pero podemos usar tu PC para es
     ```bash
     npx prisma db push
     ```
-6.  (Opcional) Carga los datos de prueba:
+6.  (Opcional) Carga los datos de prueba (remeras, tablas, etc):
     ```bash
     npx tsx prisma/seed.ts
     ```
 
-¡Listo! Tu galería debería estar funcionando en `https://art-gallery-tu-usuario.vercel.app`.
+¡Listo! Tu tienda Separk debería estar funcionando en `https://separk-shop-tu-usuario.vercel.app`.

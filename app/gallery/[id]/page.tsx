@@ -15,7 +15,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
     if (!product) return <div>Producto no encontrado</div>
 
     // WhatsApp Link Logic
-    const phoneNumber = "5491112345678" // Replace with actual number
+    const phoneNumber = "5493454012405" // Separk WhatsApp
     const message = `Hola! Me interesa comprar el producto "${product.title}". Link: ${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/gallery/${product.id}`
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 

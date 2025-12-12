@@ -31,8 +31,12 @@ export default async function RootLayout({
             <Link href="/gallery" className="hover:opacity-70 transition-opacity">Tienda</Link>
             {session?.user ? (
               <>
-                <Link href="/admin" className="hover:opacity-70 transition-opacity">Admin</Link>
+                {/* @ts-ignore */}
+                {session.user.role === 'admin' && (
+                  <Link href="/admin" className="hover:opacity-70 transition-opacity">Admin</Link>
+                )}
                 <div className="w-px h-4 bg-white/20"></div>
+                <span className="text-gray-400 text-xs">{session.user.email}</span>
                 <LogoutButton />
               </>
             ) : (
