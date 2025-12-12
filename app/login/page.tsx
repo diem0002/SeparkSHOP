@@ -154,7 +154,6 @@ export default function LoginPage() {
                                     ref={turnstileRef}
                                     siteKey="0x4AAAAAACGI2AWPJRQRjXd3"
                                     onSuccess={(token) => setCaptchaToken(token)}
-                                    theme="dark"
                                 />
                             </motion.div>
                         )}
