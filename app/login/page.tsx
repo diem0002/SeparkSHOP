@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowRight, Lock, Mail, Loader2, Shield } from 'lucide-react'
 import Link from 'next/link'
-import Turnstile from '@marsidev/react-turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function LoginPage() {
     const router = useRouter()
