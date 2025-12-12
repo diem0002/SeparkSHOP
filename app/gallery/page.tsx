@@ -14,8 +14,9 @@ export default function GalleryPage() {
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
-                // Extract unique categories
+                // Extract unique categories, excluding "General"
                 const uniqueCategories = Array.from(new Set(data.map((p: any) => p.category)))
+                    .filter(cat => cat !== "General")
                 setCategories(uniqueCategories as string[])
                 setLoading(false)
             })
@@ -49,8 +50,8 @@ export default function GalleryPage() {
                 <button
                     onClick={() => setSelectedCategory("Todas")}
                     className={`px-6 py-2 rounded-full transition-all ${selectedCategory === "Todas"
-                            ? "bg-cyan-400 text-black font-semibold"
-                            : "bg-white/5 text-gray-400 hover:bg-white/10"
+                        ? "bg-cyan-400 text-black font-semibold"
+                        : "bg-white/5 text-gray-400 hover:bg-white/10"
                         }`}
                 >
                     Todas
@@ -60,8 +61,8 @@ export default function GalleryPage() {
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
                         className={`px-6 py-2 rounded-full transition-all ${selectedCategory === cat
-                                ? "bg-cyan-400 text-black font-semibold"
-                                : "bg-white/5 text-gray-400 hover:bg-white/10"
+                            ? "bg-cyan-400 text-black font-semibold"
+                            : "bg-white/5 text-gray-400 hover:bg-white/10"
                             }`}
                     >
                         {cat}
