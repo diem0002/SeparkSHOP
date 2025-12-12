@@ -1,16 +1,21 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { ArrowRight, Lock, Mail, Loader2 } from 'lucide-react'
+import { ArrowRight, Lock, Mail, Loader2, Shield } from 'lucide-react'
 import Link from 'next/link'
+import Turnstile from '@marsidev/react-turnstile'
 
 export default function LoginPage() {
     const router = useRouter()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [showCaptcha, setShowCaptcha] = useState(false)
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+    const [attempts, setAttempts] = useState(0)
+    const turnstileRef = useRef<any>(null)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -26,7 +31,23 @@ export default function LoginPage() {
                 throw new Error("Por favor completa todos los campos")
             }
 
-            console.log("Attempting login for:", email) // Debug log
+            // Check if captcha is required
+            if (showCaptcha && !captchaToken) {
+                throw new Error("Por favor completa el captcha de seguridad")
+            }
+
+            // Verify captcha if present
+            if (captchaToken) {
+                const verifyRes = await fetch('/api/verify-captcha', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: captchaToken })
+                })
+
+                if (!verifyRes.ok) {
+                    throw new Error("Verificación de captcha fallida")
+                }
+            }
 
             const result = await signIn('credentials', {
                 email,
@@ -34,15 +55,23 @@ export default function LoginPage() {
                 redirect: false,
             })
 
-            console.log("Login result:", result) // Debug log
-
             if (result?.error) {
-                setError('Email o contraseña incorrectos.')
+                const newAttempts = attempts + 1
+                setAttempts(newAttempts)
+
+                // Show captcha after 3 failed attempts
+                if (newAttempts >= 3) {
+                    setShowCaptcha(true)
+                }
+
+                setError(`Email o contraseña incorrectos. ${Math.max(0, 5 - newAttempts)} intentos restantes.`)
+                setCaptchaToken(null)
+                turnstileRef.current?.reset()
                 setLoading(false)
             } else {
                 // Successful login
+                setAttempts(0)
                 router.refresh()
-                // Force hard redirect to gallery
                 window.location.href = '/gallery'
             }
         } catch (err: any) {
@@ -111,10 +140,29 @@ export default function LoginPage() {
                             </div>
                         </div>
 
+                        {showCaptcha && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                className="space-y-2"
+                            >
+                                <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                    <Shield className="w-4 h-4" />
+                                    <span>Verificación de seguridad requerida</span>
+                                </div>
+                                <Turnstile
+                                    ref={turnstileRef}
+                                    siteKey="0x4AAAAAACGI2AWPJRQRjXd3"
+                                    onSuccess={(token) => setCaptchaToken(token)}
+                                    theme="dark"
+                                />
+                            </motion.div>
+                        )}
+
                         <button
                             type="submit"
-                            disabled={loading}
-                            className="w-full btn h-12 rounded-xl mt-4 group relative overflow-hidden"
+                            disabled={loading || (showCaptcha && !captchaToken)}
+                            className="w-full btn h-12 rounded-xl mt-4 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <span className="relative z-10 flex items-center gap-2">
                                 {loading ? (
