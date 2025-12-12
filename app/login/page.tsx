@@ -189,7 +189,7 @@ export default function LoginPage() {
 
             {/* Footer / Copyright */}
             <div className="absolute bottom-6 text-xs text-gray-600">
-                © 2025 ART GALLERY. Protected System.
+                © 2025 SEPARK. Sistema Protegido.
             </div>
         </div>
     )
