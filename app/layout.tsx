@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-heading' })
 
 export const metadata: Metadata = {
-  title: 'Art Gallery',
-  description: 'Exclusive art collection',
+  title: 'Separk',
+  description: 'Ropa y accesorios para patinar',
 }
 
 export default async function RootLayout({
