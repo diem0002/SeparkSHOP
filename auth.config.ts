@@ -21,11 +21,7 @@ export const authConfig = {
                 return false; // Redirect unauthenticated users to login page
             }
 
-            if (isOnGallery) {
-                if (isLoggedIn) return true;
-                return false;
-            }
-
+            // Allow public access to gallery and all other pages
             return true;
         },
         // @ts-ignore
